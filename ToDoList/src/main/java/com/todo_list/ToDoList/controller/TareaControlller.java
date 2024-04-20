@@ -4,18 +4,22 @@ import com.todo_list.ToDoList.entity.Tarea;
 import com.todo_list.ToDoList.service.TareaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
 /*Creamos la ruta con la que accedemos como base de la url, en este caso es como indexar lo consiguiente a localhost:8080*/
-@RequestMapping
+@Controller
+@RequestMapping("/")
 public class TareaControlller {
     @Autowired
     private TareaService objTareaService;
 
+    @GetMapping
     public String mostrarTarea(Model objModel,
             /*Definir RequestParam cuando se entienda el concepto
                    * En Spring Boot, @RequestParam es una anotación que se utiliza para vincular los parámetros de una solicitud HTTP a los parámetros de un método de controlador en un controlador de Spring.
@@ -30,7 +34,7 @@ public class TareaControlller {
         objModel.addAttribute("listaTareas", listaDeTareas);  /*Clave - Valor*/
         objModel.addAttribute("currentPage", page);
         objModel.addAttribute("totalPage", listaDeTareas.getTotalPages());
-        return "viewCoders";
+        return "ToDoList";
     }
 
 

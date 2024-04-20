@@ -16,8 +16,6 @@ public class TareaService {
     //Hacemos la inyección de dependencias
     @Autowired
     private TareaRepository objTareaRepository;
-
-
     //El service tiene que ver con la logica del negocio por cual accedemos a todos los metodos que nos proporciona repository para que desde el controller se invoquen desde una inyecciòn de dependencias ya
 
     public List<Tarea> findAll(){
@@ -34,7 +32,10 @@ public class TareaService {
         }
 
         /* Crear la paginación */
+// Se crea la paginación por medio de una solicitud, en el cual se le indica la página que queremos visualizar y la cantidad de datos que deseamos ver en cada consulta de página
         Pageable objPage = PageRequest.of(page, size);
+
+        /*Entonces tengamos en cuenta que find all hace una consulta completa a la base de datos, pero en este caso le vamos a pasar como param*/
         return this.objTareaRepository.findAll(objPage);
     }
 
