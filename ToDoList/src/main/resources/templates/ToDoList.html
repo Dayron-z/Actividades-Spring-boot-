@@ -18,11 +18,11 @@
     <title>Document</title>
 </head>
 <body>
-<h1 class="text-center fw-bold my-5">Lista de Coders</h1>
+<h1 class="text-center fw-bold my-5">Lista de Tareas</h1>
 
 <div class="container d-flex flex-column align-items-center">
-    <a href="#" class="align-self-end btn btn-warning mb-3"
-    >Crear Coder</a
+    <a href="/tarea" class="align-self-end btn btn-warning mb-3"
+    >Crear Tarea</a
     >
     <table class="table table-striped table-dark table-hover">
         <thead>
@@ -44,8 +44,8 @@
             <td th:text ="${tarea.id}"></td>
             <td th:text ="${tarea.titulo}"></td>
             <td th:text ="${tarea.descripcion}"></td>
-            <td th:text ="${tarea.descripcion}"></td>
             <td th:text ="${tarea.estado}"></td>
+            <td th:text ="${tarea.fechaCreacion}"></td>
             <td th:text ="${tarea.horaCreacion}"></td>
             <td>
                 <div class="d-flex gap-2">

@@ -7,9 +7,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 
 /*Creamos la ruta con la que accedemos como base de la url, en este caso es como indexar lo consiguiente a localhost:8080*/
@@ -20,11 +21,11 @@ public class TareaControlller {
     private TareaService objTareaService;
 
     @GetMapping
+    /*Definir RequestParam cuando se entienda el concepto
+     * En Spring Boot, @RequestParam es una anotación que se utiliza para vincular los parámetros de una solicitud HTTP a los parámetros de un método de controlador en un controlador de Spring.
+     *
+     * */
     public String mostrarTarea(Model objModel,
-            /*Definir RequestParam cuando se entienda el concepto
-                   * En Spring Boot, @RequestParam es una anotación que se utiliza para vincular los parámetros de una solicitud HTTP a los parámetros de un método de controlador en un controlador de Spring.
-                               *
-                               * */
                                @RequestParam(defaultValue = "1") int page,
                                @RequestParam(defaultValue = "2") int size
                                ){
@@ -37,6 +38,32 @@ public class TareaControlller {
         return "ToDoList";
     }
 
+
+
+    @GetMapping("tarea")
+    public String showViewForm(Model model) {
+        //Creamos un objeto tarea vacio cada que ingresemos a esa url
+
+/* En el controlador, cuando creas una nueva instancia de Tarea, estableces los valores para fechaCreacion y horaCreacion utilizando LocalDate.now() y LocalTime.now(), respectivamente. Estos valores son parte del objeto Tarea, pero aún no se envían al formulario HTML.*/
+
+        Tarea objTarea = new Tarea();
+        objTarea.setFechaCreacion(LocalDate.now());
+        objTarea.setHoraCreacion(LocalTime.now());
+
+        model.addAttribute("nuevaTarea", objTarea);
+        //Una vez el objeto vacío sea creado le proporcionamos una
+        model.addAttribute("action", "/crear-tarea");
+        //Una vez accedamos a la vista de
+        return "tareas";
+    }
+
+
+    @PostMapping("crear-tarea")
+    public String crearTarea(@ModelAttribute Tarea objTarea){
+        this.objTareaService.crearTarea(objTarea);
+
+        return "redirect:/";
+    }
 
 
 

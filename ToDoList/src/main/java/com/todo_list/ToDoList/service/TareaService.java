@@ -39,6 +39,12 @@ public class TareaService {
         return this.objTareaRepository.findAll(objPage);
     }
 
+    /*Creación de una tarea*/
+    public Tarea crearTarea(Tarea objTarea){
+        /*Cuando nostros hagamos uso de crear tarea en controller se ejecutrá el save con el cual guardaremos los datos ingresados en la base de datos */
+        return this.objTareaRepository.save(objTarea);
+    }
+
 
 
 }
