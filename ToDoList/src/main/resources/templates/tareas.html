@@ -55,7 +55,10 @@
       <label for="descripcion">Descripcion</label>
     </div>
 
-    <div class="form-floating mb-3">
+  <!--  <div class="form-floating mb-3">
+
+
+
       <input
               type="text"
               class="form-control"
@@ -66,6 +69,18 @@
       />
       <label for="estado">Estado</label>
     </div>
+-->
+      <div class="form-floating mb-3">
+        <select id="estado" th:value="${nuevaTarea.estado}"  th:field = "*{estado}" class="form-select" aria-label="Default select example">
+          <option selected disabled value="">Selecciona el estado</option>
+          <option value="Pendiente">Pendiente</option>
+          <option value="Finalizada">Finalizada</option>
+        </select>
+        <label for="estado">Estado</label>
+      </div>
+
+
+
 
     <input type="hidden" th:value="${nuevaTarea.fechaCreacion}"  th:field="*{fechaCreacion}" />
     <input type="hidden" th:value="${nuevaTarea.horaCreacion}"   th:field="*{horaCreacion}" />
