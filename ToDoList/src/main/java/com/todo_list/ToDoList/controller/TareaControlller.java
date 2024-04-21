@@ -28,7 +28,7 @@ public class TareaControlller {
     public String mostrarTarea(Model objModel,
                                @RequestParam(defaultValue = "1") int page,
                                @RequestParam(defaultValue = "2") int size
-                               ){
+    ) {
         Page<Tarea> listaDeTareas = this.objTareaService.findAllPaginate(page - 1, size);
 
         //El model es el envío de datos a la vista. Con addAttribute llenamos el carrito de cierta manera.
@@ -39,12 +39,11 @@ public class TareaControlller {
     }
 
 
-
     @GetMapping("tarea")
     public String showViewForm(Model model) {
         //Creamos un objeto tarea vacio cada que ingresemos a esa url
 
-/* En el controlador, cuando creas una nueva instancia de Tarea, estableces los valores para fechaCreacion y horaCreacion utilizando LocalDate.now() y LocalTime.now(), respectivamente. Estos valores son parte del objeto Tarea, pero aún no se envían al formulario HTML.*/
+        /* En el controlador, cuando creas una nueva instancia de Tarea, estableces los valores para fechaCreacion y horaCreacion utilizando LocalDate.now() y LocalTime.now(), respectivamente. Estos valores son parte del objeto Tarea, pero aún no se envían al formulario HTML.*/
 
         Tarea objTarea = new Tarea();
         objTarea.setFechaCreacion(LocalDate.now());
@@ -59,11 +58,41 @@ public class TareaControlller {
 
 
     @PostMapping("crear-tarea")
-    public String crearTarea(@ModelAttribute Tarea objTarea){
+    public String crearTarea(@ModelAttribute Tarea objTarea) {
         this.objTareaService.crearTarea(objTarea);
 
         return "redirect:/";
     }
+
+
+    @GetMapping("/eliminar/{id}")
+    public String elimnarTarea(@PathVariable Long id){
+        this.objTareaService.eliminarTarea(id);
+        return "redirect:/";
+    }
+
+    @GetMapping("/update/{id}")
+    public String editarTarea(@PathVariable Long id, Model model){
+        //Obtenemos la tarea
+        Tarea objTarea =  this.objTareaService.findById(id);
+        model.addAttribute("nuevaTarea", objTarea);
+        model.addAttribute("action", "/edit/" + id);
+
+
+        return "tareas";
+    }
+
+
+    @PostMapping("edit/{id}")
+    public String editarTarea(@PathVariable Long id, @ModelAttribute Tarea objTarea) {
+        this.objTareaService.editarTarea(id, objTarea);
+        return "redirect:/";
+    }
+
+
+
+
+
 
 
 

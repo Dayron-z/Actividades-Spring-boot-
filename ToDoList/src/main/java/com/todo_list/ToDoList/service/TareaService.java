@@ -22,8 +22,6 @@ public class TareaService {
         return this.objTareaRepository.findAll();
     }
 
-
-
     //Desde acá le indicamos la pagina y
     public Page<Tarea> findAllPaginate(int page, int size) {
         /* Validar que la página no sea menor a 0 */
@@ -38,12 +36,37 @@ public class TareaService {
         /*Entonces tengamos en cuenta que find all hace una consulta completa a la base de datos, pero en este caso le vamos a pasar como param*/
         return this.objTareaRepository.findAll(objPage);
     }
-
     /*Creación de una tarea*/
     public Tarea crearTarea(Tarea objTarea){
         /*Cuando nostros hagamos uso de crear tarea en controller se ejecutrá el save con el cual guardaremos los datos ingresados en la base de datos */
         return this.objTareaRepository.save(objTarea);
     }
+    public void eliminarTarea(Long id){
+        this.objTareaRepository.deleteById(id);
+    }
+
+
+    //Para editar buscamos por id la tarea especifica
+    public Tarea findById(Long id){
+        return this.objTareaRepository.findById(id).orElse(null);
+    }
+
+
+    public Tarea editarTarea(Long id, Tarea tarea){
+        /*Buscamos la tarea por el id*/
+        Tarea objTarea = this.findById(id);
+
+        if (objTarea == null){
+            return null;
+        }
+        objTarea = tarea;
+        /* El método save verifica, si el objeto tiene la llave primaria
+         * llena entonces actualizar de lo contrario , crea un nuevo registro
+                */
+        return this.objTareaRepository.save(objTarea);
+    }
+
+
 
 
 

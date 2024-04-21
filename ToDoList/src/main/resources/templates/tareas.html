@@ -36,6 +36,7 @@
               id="titulo"
               placeholder="Titulo"
               th:field = "*{titulo}"
+              th:value="${nuevaTarea.titulo}"
       />
       <label for="titulo">Titulo</label>
     </div>
@@ -47,6 +48,7 @@
               id="descripcion"
               placeholder="Descripcion"
               th:field = "*{descripcion}"
+              th:value="${nuevaTarea.descripcion}"
       />
       <label for="descripcion">Descripcion</label>
     </div>
@@ -58,12 +60,13 @@
               id="estado"
               placeholder="Estado"
               th:field = "*{estado}"
+              th:value="${nuevaTarea.estado}"
       />
       <label for="estado">Estado</label>
     </div>
 
-    <input type="hidden" th:field="*{fechaCreacion}" />
-    <input type="hidden" th:field="*{horaCreacion}" />
+    <input type="hidden" th:value="${nuevaTarea.fechaCreacion}"  th:field="*{fechaCreacion}" />
+    <input type="hidden" th:value="${nuevaTarea.horaCreacion}"   th:field="*{horaCreacion}" />
 
 
     <div class="d-flex gap-3">
