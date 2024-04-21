@@ -27,7 +27,7 @@ public class TareaControlller {
      * */
     public String mostrarTarea(Model objModel,
                                @RequestParam(defaultValue = "1") int page,
-                               @RequestParam(defaultValue = "2") int size
+                               @RequestParam(defaultValue = "5") int size
     ) {
         Page<Tarea> listaDeTareas = this.objTareaService.findAllPaginate(page - 1, size);
 
@@ -83,11 +83,13 @@ public class TareaControlller {
     }
 
 
-    @PostMapping("edit/{id}")
-    public String editarTarea(@PathVariable Long id, @ModelAttribute Tarea objTarea) {
-        this.objTareaService.editarTarea(id, objTarea);
-        return "redirect:/";
-    }
+        @PostMapping("edit/{id}")
+        public String editarTarea(@PathVariable Long id, @ModelAttribute Tarea objTarea) {
+            this.objTareaService.editarTarea(id, objTarea);
+            return "redirect:/";
+        }
+
+
 
 
 
