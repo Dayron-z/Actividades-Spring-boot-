@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/evento")
 @AllArgsConstructor
@@ -28,6 +30,36 @@ public class EventoController {
         // Retornar una respuesta indicando que el objeto ha sido creado satisfactoriamente
         return ResponseEntity.status(HttpStatus.CREATED).body("Objeto creado satisfactoriamente");
     }
+
+
+    @GetMapping("/guardar")
+    public ResponseEntity<List<Evento>>listarEventos(){
+        List<Evento> listaDeEventos = this.objIEventoServices.listarEventos();
+        return ResponseEntity.ok(listaDeEventos);
+    }
+
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Evento> BuscarPorId(@PathVariable String id){
+        Evento objEvento = this.objIEventoServices.findById(id);
+        return ResponseEntity.ok(objEvento);
+    }
+
+
+    @PostMapping("/editar/{id}")
+    public ResponseEntity<Evento> editarEvento(@PathVariable String id, @RequestBody Evento objEvento){
+        //Lo que queremos hacer con los dos parametros que recibimos es lo siguiente:
+            /*1-*/ /*Con el id buscamos el objeto especifico que deseamos modificar*/
+            /*2-*/ /*EL RequestBody que seria la deserialización, obtenemos el objeto que nos debe proporcionar el usuario con los nuevos datos*/
+
+          boolean evento  = this.objIEventoServices.actualizar(objEvento);
+
+
+          return ResponseEntity.ok(objEvento);
+    }
+
+
+
 
 
 

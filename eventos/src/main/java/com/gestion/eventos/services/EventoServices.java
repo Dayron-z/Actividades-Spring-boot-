@@ -26,7 +26,7 @@ public class EventoServices implements IEventoServices {
     }
     @Override
     public List<Evento> listarEventos() {
-        return null;
+        return this.objEventoRepository.findAll();
     }
     @Override
     public Evento findById(String id) {
@@ -34,6 +34,11 @@ public class EventoServices implements IEventoServices {
     }
     @Override
     public boolean actualizar(Evento objEvento) {
+        Evento eventoExistente = objEventoRepository.findById(objEvento.getId()).orElse(null);
+        if (eventoExistente != null) {
+            objEventoRepository.save(objEvento);
+            return true;
+        }
         return false;
     }
     @Override
