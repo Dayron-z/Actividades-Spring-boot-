@@ -28,12 +28,16 @@ public class EventoServices implements IEventoServices {
     public List<Evento> listarEventos() {
         return this.objEventoRepository.findAll();
     }
+
+
+    //El findById Es ùtil para tema de edit y delete
     @Override
     public Evento findById(String id) {
-        return null;
+        return this.objEventoRepository.findById(id).orElseThrow();
     }
     @Override
     public boolean actualizar(Evento objEvento) {
+        //Para el tema de actualizar necesitamos que el usuario nos proporcione el json desde el postman
         Evento eventoExistente = objEventoRepository.findById(objEvento.getId()).orElse(null);
         if (eventoExistente != null) {
             objEventoRepository.save(objEvento);
@@ -43,6 +47,11 @@ public class EventoServices implements IEventoServices {
     }
     @Override
     public boolean eliminar(String id) {
-        return false;
+        Evento eventoExistente = objEventoRepository.findById(id).orElse(null);
+        if (eventoExistente != null){
+            objEventoRepository.delete(eventoExistente);
+            return true;
+        }
+        return  false;
     }
 }
