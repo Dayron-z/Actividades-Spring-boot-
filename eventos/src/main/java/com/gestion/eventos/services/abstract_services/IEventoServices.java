@@ -11,7 +11,7 @@ public interface IEventoServices {
     public Evento guardar(Evento objEvento);
     public List<Evento> listarEventos();
     public Evento findById(String id);
-    public boolean actualizar(Evento objEvento);
+    public Evento actualizar(Evento objEvento);
     public boolean eliminar(String id);
 }
 

@@ -38,7 +38,6 @@ public class EventoController {
     }
 
 
-
     //Se puede dejar el getMapping sin especificar pero en este caso que haremos uso de un extracto del http
     @GetMapping(path = "/{id}")
     public ResponseEntity<Evento> BuscarPorId(@PathVariable String id){
@@ -48,18 +47,15 @@ public class EventoController {
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> editarEvento(@RequestBody Evento objEvento){
-        //Lo que queremos hacer con los dos parametros que recibimos es lo siguiente:
-            /*1-*/ /*Con el id buscamos el objeto especifico que deseamos modificar*/
-            /*2-*/ /*EL RequestBody que seria la deserialización, obtenemos el objeto que nos debe proporcionar el usuario con los nuevos datos*/
-        Boolean validacion = this.objIEventoServices.actualizar(objEvento);
+    //Proceso editar, el me pasará la parte del json que será modifica
+    //La obtención del id se debe hacer por medio del path para temas de seguridad
 
-        if (validacion == true){
-            return ResponseEntity.ok("Eliminado corecctamente");
-        }else{
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("El evento con el ID " +   objEvento  + " no ha sido encontrado");
-        }
 
+    public ResponseEntity<Evento> editarEvento(@RequestBody Evento objEvento, @PathVariable String id){
+        /* Es una buena práctica establecer el ID del objeto recibido en el controlador antes de pasarlo al servicio para mantener la coherencia y facilitar la comprensión del flujo de datos en la aplicación. */
+        objEvento.setId(id);
+        objIEventoServices.actualizar(objEvento);
+        return ResponseEntity.ok(objEvento);
     }
 
 

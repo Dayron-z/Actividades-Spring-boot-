@@ -36,15 +36,7 @@ public class EventoServices implements IEventoServices {
         return this.objEventoRepository.findById(id).orElseThrow();
     }
     @Override
-    public boolean actualizar(Evento objEvento) {
-        //Para el tema de actualizar necesitamos que el usuario nos proporcione el json desde el postman
-        Evento eventoExistente = objEventoRepository.findById(objEvento.getId()).orElse(null);
-        if (eventoExistente != null) {
-            objEventoRepository.save(objEvento);
-            return true;
-        }
-        return false;
-    }
+    public Evento actualizar(Evento objEvento) {return this.objEventoRepository.save(objEvento);}
     @Override
     public boolean eliminar(String id) {
         Evento eventoExistente = objEventoRepository.findById(id).orElse(null);
