@@ -1,7 +1,9 @@
 package com.gestion.eventos.services.abstract_services;
 
 import com.gestion.eventos.entities.Evento;
+import org.springframework.data.domain.Page;
 
+import java.awt.print.Pageable;
 import java.util.List;
 
 //Al ser una interfaz creada por nosotros para nuestro proyecto, no extendemos de ninguna clase, es el contrato que llevaremos a cabo para el service.
@@ -13,5 +15,6 @@ public interface IEventoServices {
     public Evento findById(String id);
     public Evento actualizar(Evento objEvento);
     public boolean eliminar(String id);
+    public Page<Evento> paginar(int page, int size);
 }
 

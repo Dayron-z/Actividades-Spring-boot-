@@ -4,10 +4,12 @@ import com.gestion.eventos.entities.Evento;
 import com.gestion.eventos.services.abstract_services.IEventoServices;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -21,10 +23,20 @@ public class EventoController {
 
     @PostMapping
     /*    @RequestBody permite que un método de controlador tome un objeto automáticamente deserializado del cuerpo de una solicitud HTTP, utilizando convertidores de mensajes HTTP.*/
-
     /*@RequestBody en Spring MVC es una herramienta poderosa para recibir datos estructurados en el cuerpo de una solicitud HTTP y mapearlos directamente a objetos Java correspondientes, facilitando así la manipulación de datos en tus controladores.*/
     public ResponseEntity<String> crear(@RequestBody Evento objEvento){
         // Guardar el objeto que nos llega en la solicitud POST en la base de datos
+        int capacidad = objEvento.getCapacidad();
+        LocalDate fecha = objEvento.getFecha();
+
+        if (capacidad < 0) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+
+        if (fecha.isBefore(LocalDate.now())){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+
         objIEventoServices.guardar(objEvento);
         // Retornar una respuesta indicando que el objeto ha sido creado satisfactoriamente
         return ResponseEntity.status(HttpStatus.CREATED).body("Objeto creado satisfactoriamente");
@@ -45,8 +57,13 @@ public class EventoController {
         return ResponseEntity.ok(objEvento);
     }
 
+    @GetMapping(path = "/{page}/{size}")
+    public ResponseEntity<Page<Evento>>saddsa(){
+        return eventoService.paginar(ps)
+    }
 
-    @PutMapping("/{id}")
+
+    @PutMapping(path = "/{id}")
     //Proceso editar, el me pasará la parte del json que será modifica
     //La obtención del id se debe hacer por medio del path para temas de seguridad
 
@@ -59,7 +76,7 @@ public class EventoController {
     }
 
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping(path = "/{id}")
     public ResponseEntity<String> eliminarEvento(@PathVariable String id){
         Boolean validacion = this.objIEventoServices.eliminar(id);
         if (validacion == true){
@@ -69,6 +86,7 @@ public class EventoController {
         }
 
     }
+
 
 
 }

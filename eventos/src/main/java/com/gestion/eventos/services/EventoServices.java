@@ -5,6 +5,9 @@ import com.gestion.eventos.repository.EventoRepository;
 import com.gestion.eventos.services.abstract_services.IEventoServices;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,8 +31,6 @@ public class EventoServices implements IEventoServices {
     public List<Evento> listarEventos() {
         return this.objEventoRepository.findAll();
     }
-
-
     //El findById Es ùtil para tema de edit y delete
     @Override
     public Evento findById(String id) {
@@ -46,4 +47,16 @@ public class EventoServices implements IEventoServices {
         }
         return  false;
     }
+
+    public Page<Evento> paginar(int page, int size){
+        /* Validar que la página no sea menor a 0 */
+        if (page < 0) {
+            page = 0;
+        }
+
+        Pageable objPage = PageRequest.of(page, size);
+        return this.objEventoRepository.findAll(objPage);
+    };
+
+
 }
