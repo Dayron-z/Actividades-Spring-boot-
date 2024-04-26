@@ -65,6 +65,7 @@ public class EventoController {
 
 
     @PutMapping(path = "/{id}")
+
     //Proceso editar, el me pasará la parte del json que será modifica
     //La obtención del id se debe hacer por medio del path para temas de seguridad
 
