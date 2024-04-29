@@ -58,12 +58,14 @@ public class EventoController {
     }
 
     @GetMapping(path = "/{page}/{size}")
-    public ResponseEntity<Page<Evento>>saddsa(){
-        return eventoService.paginar(ps)
+    public ResponseEntity<Page<Evento>>saddsa(@PathVariable int page, @PathVariable int size){
+        Page pages = this.objIEventoServices.paginar(page - 1, size);
+        return ResponseEntity.ok(pages);
     }
 
 
     @PutMapping(path = "/{id}")
+
     //Proceso editar, el me pasará la parte del json que será modifica
     //La obtención del id se debe hacer por medio del path para temas de seguridad
 
@@ -71,8 +73,8 @@ public class EventoController {
     public ResponseEntity<Evento> editarEvento(@RequestBody Evento objEvento, @PathVariable String id){
         /* Es una buena práctica establecer el ID del objeto recibido en el controlador antes de pasarlo al servicio para mantener la coherencia y facilitar la comprensión del flujo de datos en la aplicación. */
         objEvento.setId(id);
-        objIEventoServices.actualizar(objEvento);
-        return ResponseEntity.ok(objEvento);
+        Evento evento =  objIEventoServices.actualizar(objEvento);
+        return ResponseEntity.ok(evento);
     }
 
 
@@ -80,11 +82,10 @@ public class EventoController {
     public ResponseEntity<String> eliminarEvento(@PathVariable String id){
         Boolean validacion = this.objIEventoServices.eliminar(id);
         if (validacion == true){
-            return ResponseEntity.ok("Eliminado corecctamente");
+            return ResponseEntity.ok("Eliminado correctamente");
         }else{
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("El evento con el ID " + id + " no ha sido encontrado");
         }
-
     }
 
 
