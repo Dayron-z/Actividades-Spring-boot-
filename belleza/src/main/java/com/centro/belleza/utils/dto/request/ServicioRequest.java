@@ -15,9 +15,9 @@ import lombok.NoArgsConstructor;
 @Builder //Estudiar
 
 public class ServicioRequest {
-    private String nombre;
-    private String descripcion;
-    private Double precio;
+        private String nombre;
+        private String descripcion;
+        private Double precio;
 }
 
 

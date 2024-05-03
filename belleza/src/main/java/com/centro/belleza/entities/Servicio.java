@@ -24,7 +24,7 @@ import java.util.List;
 /*    fetch EAGER: Carga Ansiosa. Los datos asociados se cargan de inmediato cuando se recupera la entidad principal.
         fetch LAZY: Carga Perezosa. Los datos asociados se cargarán solo cuando se acceda explícitamente a ellos.*/
         //. En este caso, mappedBy se refiere al nombre del atributo en la entidad inversa (Citas) que establece la relación.
-        @OneToMany(mappedBy = "servicio", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+        @OneToMany(mappedBy = "servicio", cascade = CascadeType.ALL, orphanRemoval = false, fetch = FetchType.LAZY)
         @ToString.Exclude
         @EqualsAndHashCode.Exclude
         private List<Cita> citas;

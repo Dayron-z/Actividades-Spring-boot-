@@ -1,9 +1,11 @@
 package com.centro.belleza.services;
 
+import com.centro.belleza.entities.Cita;
 import com.centro.belleza.entities.Servicio;
 import com.centro.belleza.repositories.ServicioRepository;
 import com.centro.belleza.services.interfaces.IServicioService;
 import com.centro.belleza.utils.dto.request.ServicioRequest;
+import com.centro.belleza.utils.dto.response.CitaToServiceResponse;
 import com.centro.belleza.utils.dto.response.ServicioResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
@@ -13,8 +15,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.stream.Collectors;
 
-    @Service
+
+@Service
 @AllArgsConstructor
 public class ServicioService implements IServicioService {
 
@@ -30,7 +35,13 @@ public class ServicioService implements IServicioService {
 
     @Override
     public ServicioResponse create(ServicioRequest request) {
-        return null;
+        //Convertimos el ServicioRequest en la entidad
+        Servicio servicio = this.requestToEntity(request, new Servicio());
+
+
+        //El repository como tal recibe a la entidad base
+        //El mapeo que le realizamos para que pase a entityToResponse es lo que genera la respuesta con nuestras especificaciones
+        return this.entityToResponse(this.servicioRepository.save(servicio));
     }
 
     @Override
@@ -58,15 +69,42 @@ public class ServicioService implements IServicioService {
         // Queremos mapear cada servicio, por ende el iterador que es cada servicio es el que se mapea
 
     }
-
         //Método para pasar de entidad a response
         //Acá es donde vamos a mapear
         private ServicioResponse entityToResponse(Servicio entity){
-        ServicioResponse reponse = new ServicioResponse();
-        BeanUtils.copyProperties(entity, reponse);
+        ServicioResponse response = new ServicioResponse();
+        BeanUtils.copyProperties(entity, response);
         //Como tal lo que hacemos acá es setear atributos pero mediante anotación
         //Retornamos reponse que es el directamente mutado
-        return reponse;
+
+            //Mapeamos las citas conviritiendo cada una de ellas al dto respuesta que le queremos dar al usuario (ServicioResponse que creamos)
+
+            //Como tal necesitamos recuperar los datos de la cita, para eso usamos CitaToServiceResponse que nos proporciona el método citaToResponse
+            //Que es el response que generamos en la carpeta dto, que me proporciona los datos de la cita, sin el servicio
+            response.setCitas(entity.getCitas().stream().map(cita -> this.citaToResponse(cita)).collect(Collectors.toList()));
+
+
+        return response;
+        }
+
+
+
+
+        private CitaToServiceResponse citaToResponse(Cita entity){
+            CitaToServiceResponse response = new CitaToServiceResponse();
+            BeanUtils.copyProperties(entity, response);
+
+
+            return response;
+        }
+
+
+
+        private Servicio requestToEntity(ServicioRequest request, Servicio servicio){
+            BeanUtils.copyProperties(request, servicio);
+            servicio.setCitas(new ArrayList<>());
+
+            return servicio;
         }
 
 

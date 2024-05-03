@@ -21,5 +21,5 @@ public class ServicioResponse {
 
     //Esta es opcional según se requiera
     //¿A la hora de ver un servicio queremos ver la lista de citas qué están asociadas?
-    private List<Cita> citas;
+    private List<CitaToServiceResponse> citas;
 }
