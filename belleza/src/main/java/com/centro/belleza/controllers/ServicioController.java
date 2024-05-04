@@ -13,18 +13,28 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/servicio")
 public class ServicioController  {
 
-    private final IServicioService servicioService;
+    private final IServicioService IServicioService;
 
     @GetMapping
     public ResponseEntity<Page<ServicioResponse>> get(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "2") int size){
-        return ResponseEntity.ok(this.servicioService.getAll(page - 1,size));
+        return ResponseEntity.ok(this.IServicioService.getAll(page - 1,size));
     }
 
     @PostMapping
     public ResponseEntity<ServicioResponse>post(@RequestBody ServicioRequest servicioRequest){
-        return ResponseEntity.ok(this.servicioService.create(servicioRequest));
+        return ResponseEntity.ok(this.IServicioService.create(servicioRequest));
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<ServicioResponse>put(@RequestBody ServicioRequest servicioRequest, @PathVariable Long id){
+        return ResponseEntity.ok(this.IServicioService.update(id, servicioRequest));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String>delete(@PathVariable Long id){
+        this.IServicioService.delete(id);
+        return ResponseEntity.ok("Usuario eliminado satisfactoriamente") ;
+    }
 
 
 
