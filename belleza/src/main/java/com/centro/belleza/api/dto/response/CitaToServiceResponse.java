@@ -1,4 +1,4 @@
-package com.centro.belleza.utils.dto.response;
+package com.centro.belleza.api.dto.response;
 
 public class CitaToServiceResponse {
     private String nombre;

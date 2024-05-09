@@ -1,19 +1,17 @@
-package com.centro.belleza.services;
+package com.centro.belleza.infrastructure.services;
 
-import com.centro.belleza.entities.Cita;
-import com.centro.belleza.entities.Servicio;
-import com.centro.belleza.repositories.ServicioRepository;
-import com.centro.belleza.services.interfaces.IServicioService;
-import com.centro.belleza.utils.dto.request.ServicioRequest;
-import com.centro.belleza.utils.dto.response.CitaToServiceResponse;
-import com.centro.belleza.utils.dto.response.ServicioResponse;
+import com.centro.belleza.domain.entities.Cita;
+import com.centro.belleza.domain.entities.Servicio;
+import com.centro.belleza.domain.repositories.ServicioRepository;
+import com.centro.belleza.infrastructure.abstract_service.IServicioService;
+import com.centro.belleza.api.dto.request.ServicioRequest;
+import com.centro.belleza.api.dto.response.CitaToServiceResponse;
+import com.centro.belleza.api.dto.response.ServicioResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

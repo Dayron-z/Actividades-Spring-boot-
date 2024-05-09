@@ -1,7 +1,5 @@
-package com.centro.belleza.utils.dto.response;
+package com.centro.belleza.api.dto.response;
 
-import com.centro.belleza.entities.Cita;
-import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

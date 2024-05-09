@@ -1,8 +1,8 @@
-package com.centro.belleza.controllers;
+package com.centro.belleza.api.controllers;
 
-import com.centro.belleza.services.interfaces.IServicioService;
-import com.centro.belleza.utils.dto.request.ServicioRequest;
-import com.centro.belleza.utils.dto.response.ServicioResponse;
+import com.centro.belleza.infrastructure.abstract_service.IServicioService;
+import com.centro.belleza.api.dto.request.ServicioRequest;
+import com.centro.belleza.api.dto.response.ServicioResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;

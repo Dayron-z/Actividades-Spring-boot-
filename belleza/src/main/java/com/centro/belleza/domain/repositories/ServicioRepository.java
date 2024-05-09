@@ -1,7 +1,6 @@
-package com.centro.belleza.repositories;
+package com.centro.belleza.domain.repositories;
 
-import com.centro.belleza.entities.Servicio;
-import com.centro.belleza.utils.dto.response.ServicioResponse;
+import com.centro.belleza.domain.entities.Servicio;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

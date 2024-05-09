@@ -1,4 +1,4 @@
-package com.centro.belleza.entities;
+package com.centro.belleza.domain.entities;
 
 import jakarta.persistence.*;
 import lombok.*;

@@ -1,4 +1,4 @@
-package com.centro.belleza.utils.dto.request;
+package com.centro.belleza.api.dto.request;
 
 
 //No es una entidad, es una clase propia de nuestras aplicación

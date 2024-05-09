@@ -1,6 +1,5 @@
-package com.centro.belleza.utils.dto.request;
+package com.centro.belleza.api.dto.request;
 
-import com.centro.belleza.entities.Servicio;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
